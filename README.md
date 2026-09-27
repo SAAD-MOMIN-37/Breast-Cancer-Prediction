@@ -1,5 +1,12 @@
 # 🩺 Breast Cancer Prediction System
 
+![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-Frontend-3178C6?style=for-the-badge&logo=typescript)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML%20Model-F7931E?style=for-the-badge&logo=scikit-learn)
+![XGBoost](https://img.shields.io/badge/XGBoost-Gradient%20Boosting-EB0028?style=for-the-badge)
+
 A full-stack machine learning application that predicts whether a breast tumor is **Benign** or **Malignant** using 30 diagnostic features from the Wisconsin Breast Cancer dataset.
 
 The system combines a trained ensemble machine learning model with a **FastAPI backend** and a modern **React + TypeScript frontend** to provide real-time predictions, confidence scores, and probability distributions.
