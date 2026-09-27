@@ -9,28 +9,103 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const handleResult = (prediction: CancerPrediction) => {
+    setResult(prediction)
+    setError(null)
+  }
+
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Breast Cancer Prediction</h1>
-        <p>Enter tumor features to predict diagnosis (Benign / Malignant)</p>
+    <div className="app-shell">
+      <div className="background-glow glow-one" />
+      <div className="background-glow glow-two" />
+
+      <header className="hero">
+        <div className="hero-badge">
+          <span className="status-dot" />
+          AI DIAGNOSTIC SYSTEM
+        </div>
+
+        <h1>
+          Breast Cancer
+          <span> Prediction</span>
+        </h1>
+
+        <p>
+          Machine-learning powered breast tumor classification
+          using an ensemble prediction pipeline.
+        </p>
       </header>
 
-      <main className="app-main">
-        <FeatureForm
-          onPredict={setResult}
-          loading={loading}
-          setLoading={setLoading}
-          setError={setError}
-        />
+      <main className="dashboard">
+        <section className="workspace-card">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">MODEL INPUT</span>
+              <h2>Tumor Characteristics</h2>
+              <p>
+                Enter the 30 diagnostic features used by the trained model.
+              </p>
+            </div>
 
-        {error && <div className="error-box">{error}</div>}
+            <div className="feature-count">
+              <strong>30</strong>
+              <span>features</span>
+            </div>
+          </div>
 
-        {result && <ResultsCard prediction={result} />}
+          <FeatureForm
+            onPredict={handleResult}
+            loading={loading}
+            setLoading={setLoading}
+            setError={setError}
+          />
+
+          {error && (
+            <div className="error-box">
+              <span className="error-icon">!</span>
+              <div>
+                <strong>Prediction Error</strong>
+                <p>{error}</p>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <aside className="results-panel">
+          {result ? (
+            <ResultsCard prediction={result} />
+          ) : (
+            <div className="empty-result">
+              <div className="empty-icon">✦</div>
+
+              <span className="eyebrow">PREDICTION OUTPUT</span>
+
+              <h2>Awaiting Analysis</h2>
+
+              <p>
+                Submit the tumor characteristics to generate
+                the model prediction and probability distribution.
+              </p>
+
+              <div className="empty-line">
+                <span />
+                Ready for inference
+              </div>
+            </div>
+          )}
+        </aside>
       </main>
 
       <footer className="app-footer">
-        <p>Educational use only. Consult a medical professional for diagnosis.</p>
+        <div>
+          <strong>AI • MACHINE LEARNING • HEALTHCARE</strong>
+          <span>Educational prototype</span>
+        </div>
+
+        <p>
+          This system is for educational and experimental purposes only.
+          It is not a medical diagnostic tool.
+        </p>
       </footer>
     </div>
   )

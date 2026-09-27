@@ -11,6 +11,7 @@ export interface CancerFeatures {
   concave_points_mean: number
   symmetry_mean: number
   fractal_dimension_mean: number
+
   radius_se: number
   texture_se: number
   perimeter_se: number
@@ -21,6 +22,7 @@ export interface CancerFeatures {
   concave_points_se: number
   symmetry_se: number
   fractal_dimension_se: number
+
   radius_worst: number
   texture_worst: number
   perimeter_worst: number
@@ -40,5 +42,10 @@ export interface CancerPrediction {
   prob_malignant: number
 }
 
-export const predictCancer = (features: CancerFeatures) =>
-  client.post<CancerPrediction>('/api/cancer/predict', features)
+export const predictCancer = (
+  features: CancerFeatures,
+) =>
+  client.post<CancerPrediction>(
+    '/api/cancer/predict',
+    features,
+  )

@@ -1,14 +1,32 @@
-"""Cancer Prediction FastAPI App"""
+"""Breast Cancer Prediction FastAPI Application."""
+
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .service import load_models
+
 from .router import router
+from .service import load_models
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Load ML artifacts when the API starts."""
+    load_models()
+    print("Breast Cancer Prediction models loaded successfully.")
+    yield
+
 
 app = FastAPI(
-    title="Cancer Prediction API",
-    description="Breast cancer diagnosis prediction using ML ensemble",
-    version="1.0.0",
+    title="Breast Cancer Prediction API",
+    description=(
+        "Machine learning API for breast cancer diagnosis "
+        "prediction using an ensemble classifier."
+    ),
+    version="2.0.0",
+    lifespan=lifespan,
 )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,15 +36,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.include_router(router)
-
-
-@app.on_event("startup")
-async def startup_event():
-    load_models()
-    print("Cancer Prediction models loaded successfully")
 
 
 @app.get("/")
 async def root():
-    return {"message": "Cancer Prediction API", "status": "running"}
+    return {
+        "name": "Breast Cancer Prediction API",
+        "status": "running",
+        "version": "2.0.0",
+    }
+
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "healthy",
+        "service": "breast-cancer-prediction",
+    }
